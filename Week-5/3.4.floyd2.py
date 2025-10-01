@@ -4,6 +4,12 @@ def floyd2(n: int, W: List[List[int]]) -> List[List[int]]:
     P = [[-1] * (n) for _ in range(n)]
     D = W
     # Complete the code here
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if D[i][j] > D[i][k]+D[k][j]:
+                    D[i][j] = D[i][k]+D[k][j]
+                    P[i][j] = k
     
     return D, P
 
