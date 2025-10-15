@@ -10,6 +10,17 @@ def prim(n: int, W: List[List[float]]) -> List[Tuple[int, int, float]]:
         distance[i] = W[1][i]
     for _ in range(n - 1):
         min = INF
+        vnear = -1
         # Complete the code here
+        for i in range(2,n+1):
+            if 0<=distance[i]<min:
+                min = distance[i]
+                vnear = i
+        F.append((vnear,nearest[vnear],distance[vnear]))
+        distance[vnear]=-1
+        for i in range(2,n+1):
+            if W[i][vnear] < distance[i]:
+                distance[i] = W[i][vnear]
+                nearest[i] = vnear
 
     return F
