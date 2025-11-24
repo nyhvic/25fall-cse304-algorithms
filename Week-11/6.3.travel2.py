@@ -15,6 +15,12 @@ def remainder(path: List[int], n: int) -> int:
 
 def pathlength(path: List[int], W: List[List[float]]) -> float:
     # Complete the code here
+    i,j = 0,1
+    length = 0
+    while j<len(path):
+        length+=W[path[i]][path[j]]
+        i+=1
+        j+=1
 
     return length
 
@@ -29,6 +35,18 @@ def boundof(v: Node, n: int, W: List[List[float]]) -> float:
     lower = pathlength(v.path, W)
     for i in range(1, n + 1):
         # Complete the code here
+        if hasOutgoing(i,v.path):
+            continue
+        minimum = INF
+        for j in range(1,n+1):
+            if i==j:
+                continue
+            if j==1 and i==v.path[v.level]:
+                continue
+            if hasIncoming(j,v.path):
+                continue
+            minimum = min(minimum,W[i][j])
+        lower+=minimum
 
     return lower
 
@@ -44,5 +62,18 @@ def travel2(n: int, W: List[List[float]]) -> Tuple[float, List[int]]:
         if v.bound < minlength:
             for i in range(2, n + 1):
                 # Complete the code here
-                
+                if i in v.path:
+                    continue  
+                u=Node(v.level+1,v.path+[i])
+                if u.level == n-2:
+                    u.path.append(remainder(u.path,n))
+                    u.path.append(1)
+                    if pathlength(u.path,W)<minlength:
+                        minlength = pathlength(u.path,W)
+                        opttour = u.path
+                else:
+                    u.bound = boundof(u,n,W)
+                    if u.bound<minlength:
+                        heappush(heap,(u.bound,time.time(),u))
+
     return minlength, opttour
