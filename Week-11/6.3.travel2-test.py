@@ -172,6 +172,7 @@ def run_test_cases(file_path="6.3.travel2.py"):
             else:
                 print(f"❌ Failed (Expected: {expected}, Got: {minlength})")
     print(f"\n✅ {passed}/{total} test cases passed")
+    return passed, total
 
 
 if __name__ == '__main__':
