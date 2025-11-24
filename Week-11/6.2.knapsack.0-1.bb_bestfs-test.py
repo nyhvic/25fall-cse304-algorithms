@@ -47,6 +47,7 @@ def run_test_cases(file_path="6.2.knapsack.0-1.bb_bestfs.py"):
         print("-" * 40)
 
     print(f"\n✅ {passed}/{total} 테스트 케이스 통과")
+    return passed, total
 
 if __name__ == '__main__':
     run_test_cases()
